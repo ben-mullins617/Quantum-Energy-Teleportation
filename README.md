@@ -30,12 +30,14 @@ QIT is well established in the literature, and has a wide range of applications 
 Another form of teleportation can be derived from QIT, namely Quantum Gate Teleportation (QGT).
 Utilizing the fact that entire programs can be stored in the state of a single qubit, the resource of quantum computation can also be teleported by simply using QIT on a qubit that represents a program.
 
-In conclusion, both quantum information and quantum computation can be teleported, and the two protocols to do this are essentially equivalent.
+In conclusion, both quantum information and quantum computation can be teleported, and the two protocols that do this are essentially equivalent.
 But there exists another kind of quantity that can be teleported using a protocol that is in fact "opposite" to QIT, namely "energy". 
 
 # Quantum Energy Teleportation
 
-In 2008, M. Hotta proposed a protocol for Quantum Energy Teleportation (QET). 
+In 2008, M. Hotta proposed a protocol for Quantum Energy Teleportation (QET).
+QET uses a similar circuit to QIT, insofar as it uses LOCC, but parameters are introduced and set in a way that maximizes energy transfer between two locations.
+
 
 
 
