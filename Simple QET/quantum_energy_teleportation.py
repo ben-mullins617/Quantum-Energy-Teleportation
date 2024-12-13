@@ -1,3 +1,4 @@
+import itertools
 import logging
 from dataclasses import dataclass
 from collections import Counter
@@ -149,26 +150,36 @@ if __name__ == "__main__":
 
     n_shots = 100
 
-    alice_program = AliceProgram(h, k)
-    bob_program = BobProgram(h, k)
+    results = {}
 
-    alice_results, bob_results = run(
-        config=cfg,
-        programs={"Alice": alice_program, "Bob": bob_program},
-        num_times=n_shots,
-    )
+    for h,k in itertools.product(numpy.arange(1, 4, 0.5), numpy.arange(1, 4, 0.5)):
+        print(f"{(h,k)=}")
+        alice_program = AliceProgram(h, k)
+        bob_program = BobProgram(h, k)
 
-    # count outcomes
-    counts = Counter(zip(map(lambda x: x['measurement'], alice_results), map(lambda x: x['measurement'], bob_results)))
+        alice_results, bob_results = run(
+            config=cfg,
+            programs={"Alice": alice_program, "Bob": bob_program},
+            num_times=n_shots,
+        )
 
-    print(f"measurement statistics: ", *[str(k[0])+str(k[1])+': '+str(v) for k,v in counts.items()], "", sep="\n")
+        # count outcomes
+        counts = Counter(zip(map(lambda x: x['measurement'], alice_results), map(lambda x: x['measurement'], bob_results)))
 
-    A, V = calculate_energy(alice_results, bob_results)
+        print(f"measurement statistics: ", *[str(k[0])+str(k[1])+': '+str(v) for k,v in counts.items()], "", sep="\n")
 
-    print("Alice's local energy (measured)", A, )
-    print("Alice's local energy (exact)", h ** 2 / sqrt(h ** 2 + k ** 2))
-    print("Interacting energy V", V)
+        A, V = calculate_energy(alice_results, bob_results)
 
-    # since V is negative, B must have lost local energy.
-    # since A's measurement does not affect the energy at B, energy must have been teleported from A to B.
+        print("Alice's local energy (measured)", A, )
+        print("Alice's local energy (exact)", h ** 2 / sqrt(h ** 2 + k ** 2))
+        print("Interacting energy V", V)
+        print()
+
+        # since V is negative, B must have lost local energy.
+        # since A's measurement does not affect the energy at B, energy must have been teleported from A to B.
+
+        results[(h,k)] = A
+
+    print(results)
+
 
