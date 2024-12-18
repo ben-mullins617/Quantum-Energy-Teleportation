@@ -1,7 +1,7 @@
-from application import AliceProgram, BobProgram
-from utils import calculate_energy
+from observe_negative_energy import experiment
+from utils import calculate_energy_V
 
-from squidasm.run.stack.config import StackNetworkConfig, GenericQDeviceConfig, StackConfig
+from squidasm.run.stack.config import StackNetworkConfig
 from squidasm.run.stack.run import run
 
 import numpy as np
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 if __name__ == "__main__":
     #cfg = StackNetworkConfig.from_file("ideal_network_config.yaml")
     h, k = (1, 1.5)
-    n_shots = 10
+    n_shots = 100
     limits = {
         "t1": range(0, 11),
         "t2": range(0, 11)
@@ -26,26 +26,23 @@ if __name__ == "__main__":
         cfg.stacks[0].qdevice_cfg["T1"], cfg.stacks[0].qdevice_cfg["T2"] = 10**t1, 10**t2
         print(f"{(t1, t2)=}")
 
-        alice_program = AliceProgram(h, k)
-        bob_program = BobProgram(h, k)
-
-        alice_results, bob_results = run(
-            config=cfg,
-            programs={"Alice": alice_program, "Bob": bob_program},
-            num_times=n_shots,
-        )
-
-        A, V = calculate_energy(alice_results, bob_results, h, k, n_shots)
+        A, H1, V, E1 = experiment(h, k, n_shots, cfg)
 
         exact_A = h ** 2 / np.sqrt(h ** 2 + k ** 2 + 1e-16)
 
-        results[(t1, t2)] = {"A":A[0],
-                           "A_std":A[1],
-                           "exact_A":exact_A,
-                           "V":V[0],
-                           "V_std":V[1],
-                           "A_diff":abs(A[0]-exact_A),
-                           }
+        results[(t1, t2)] = {
+            "A_V":A[0][0],
+            "A_V_std":A[0][1],
+            "A_H1":A[0][0],
+            "A_H1_std":A[0][1],
+            "exact_A":exact_A,
+            "V":V[0],
+            "V_std":V[1],
+            "H1":H1[0],
+            "H1_std":H1[1],
+            "E1":E1[0],
+            "E1_std":E1[1]
+        }
 
     print(results)
 
@@ -56,9 +53,10 @@ if __name__ == "__main__":
         im = plt.imshow(data, cmap='hot_r', interpolation='nearest')
         plt.xticks(range(len(limits["t1"])), labels=limits["t1"])
         plt.yticks(range(len(limits["t2"])), labels=limits["t2"][::-1])
-        plt.xlabel("t1")
-        plt.ylabel("t2")
+        plt.xlabel("T1 Coherence (by Order of Magnitude)")
+        plt.ylabel("T2 Coherence (by Order of Magnitude)")
         cb = plt.colorbar(im)
         cticks = np.arange(min(data.flatten())), max(data.flatten()), (max(data.flatten()) - min(data.flatten()).flatten() / 5)
+        plt.title(f"<{heatmap_datatype}>")
         plt.savefig(f"images/QET_coherence_sweep_{heatmap_datatype}_{n_shots}.png", bbox_inches="tight")
         cb.remove()

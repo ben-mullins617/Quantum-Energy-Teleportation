@@ -1,5 +1,5 @@
-from application import AliceProgram, BobProgram
-from utils import calculate_energy, plot_histogram
+from protocols.QET_measure_V import AliceProgram, BobProgram
+from utils import calculate_energy_V, plot_histogram
 
 from squidasm.run.stack.config import StackNetworkConfig
 from squidasm.run.stack.run import run
@@ -14,16 +14,13 @@ if __name__ == "__main__":
     # (h,k) = (1.5,1) are found to be sufficiently optimal for energy transfer
     h = 1.5
     k = 1
-    n_shots = 10000
+    n_shots = 1000
 
     alice_program = AliceProgram(h, k)
     bob_program = BobProgram(h, k)
 
     # 2 node network, no noise
     cfg = StackNetworkConfig.from_file("ideal_network_config.yaml")
-
-    # Run the simulation. Programs argument is a mapping of network node labels to programs to run on that node
-    run(config=cfg, programs={"Alice": alice_program, "Bob": bob_program}, num_times=1)
 
     alice_results, bob_results = run(
         config=cfg,
@@ -40,7 +37,7 @@ if __name__ == "__main__":
     print(f"measurement statistics: ", *[str(k[0]) + str(k[1]) + ': ' + str(v) for k, v in counts.items()], "",
           sep="\n")
 
-    A, V = calculate_energy(alice_results, bob_results, h, k, n_shots)
+    A, V = calculate_energy_V(alice_results, bob_results, h, k, n_shots)
 
     exact_A = h ** 2 / np.sqrt(h ** 2 + k ** 2)
 
