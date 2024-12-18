@@ -49,11 +49,11 @@ The inputs into the algorithm are h, k, positive numbers that parameterise the q
 
 ## Algorithm Summary
 
-Two qubits are placed into a ground state |g> and shared between Alice and Bob
-Alice performs a Hadamard gate operation on her qubit, which adds energy <A_V> to the system
-Alice measures her qubit and sends the result to Bob
-Bob performs a conditional operation on his qubit, spending on the information from Alice 
-There is no guarantee of energy transfer so this protocol has to be performed repeatedly to approach a mean value. 
+1. Two qubits are placed into a ground state $\ket{g}$ and shared between Alice and Bob.
+2. Alice performs a Hadamard gate operation on her qubit, who adds energy $\braket{A_V}$ to the system.
+3. Alice measures her qubit and sends the result to Bob.
+4. Bob performs a conditional operation on his qubit, depending on the information from Alice.
+5. Since there is no guarantee of energy transfer, when repeated a sufficient number of times the mean value of energy transferred is ultimately positive.
 
 ## Execution 
 
