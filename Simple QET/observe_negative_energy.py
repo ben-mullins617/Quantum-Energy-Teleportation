@@ -48,11 +48,13 @@ if __name__ == "__main__":
 
     A, H1, V, B = experiment(h, k, n_shots, cfg)
 
-    text = f"""Alice's local energy (measured): {A[0][0]:.5} ± {A[0][1]:.5} (from H1 experiment), {A[1][0]:.5} ± {A[1][1]:.5} (from V experiment)
+    text = f"""{(h, k)=}
+{n_shots=}
+Alice's local energy (measured): {A[0][0]:.5} ± {A[0][1]:.5} (from H1 experiment), {A[1][0]:.5} ± {A[1][1]:.5} (from V experiment)
 Alice's local energy (exact): {h**2/np.sqrt(h**2+k**2)}
 H1: {H1}
 V: {V}
-Bob's local energy (H1+V): {H1[0]+V[0]:.5} ± {H1[1]+V[1]:.5}
+Expected local energy at Bob's subsystem (E1=H1+V): {H1[0]+V[0]:.5} ± {H1[1]+V[1]:.5}
 """
 
     print(text)
