@@ -41,7 +41,19 @@ Quantum energy teleportation is fundamentally different because the energy, alth
 In practice, the amount of energy that can be teleported is small. Current experiments work on the Planck scale. However, further work is needed to explore the capabilities and upper limits of this process.
 
 
-# Description 
+# Description
+
+## Inputs
+
+The inputs into the algorithm are h, k, positive numbers that parameterise the qubit rotation angle. Significantly, they determine how much energy is teleported, so finding their optimal values is an important goal of the simulated runs.
+
+## Algorithm Summary
+
+1. Two qubits are placed into a ground state $\ket{g}$ and shared between Alice and Bob.
+2. Alice performs a Hadamard gate operation on her qubit, who adds energy $\braket{A_V}$ to the system.
+3. Alice measures her qubit and sends the result to Bob.
+4. Bob performs a conditional operation on his qubit, depending on the information from Alice.
+5. Since there is no guarantee of energy transfer, when repeated a sufficient number of times the mean value of energy transferred is ultimately positive.
 
 # Experiments and Results
 
@@ -67,27 +79,17 @@ These results are consistent with the effect measured by Ikeda4 and with his cho
 
 ![](images/final/img_1.png)
 
-## Inputs
-
-The inputs into the algorithm are h, k, positive numbers that parameterise the qubit rotation angle. Significantly, they determine how much energy is teleported, so finding their optimal values is an important goal of the simulated runs.
-
-## Algorithm Summary
-
-1. Two qubits are placed into a ground state $\ket{g}$ and shared between Alice and Bob.
-2. Alice performs a Hadamard gate operation on her qubit, who adds energy $\braket{A_V}$ to the system.
-3. Alice measures her qubit and sends the result to Bob.
-4. Bob performs a conditional operation on his qubit, depending on the information from Alice.
-5. Since there is no guarantee of energy transfer, when repeated a sufficient number of times the mean value of energy transferred is ultimately positive.
-
 ## Execution 
 
 Simulation is performed on the NetSquid simulators.
 
+# How to Run
+
 ## Requirements
 
-SquidASM must be installed (tested on an Ubuntu virtual machine)
+SquidASM and numpy must be installed (tested on an Ubuntu virtual machine)
 ```
-$ pip install requirements.txt
+$ pip install numpy
 ```
 
 ## How to run
