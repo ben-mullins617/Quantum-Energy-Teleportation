@@ -1,4 +1,4 @@
-# Quantum-Economic-Behaviour
+# Quantum Energy Teleportation
 
 introduction here
 
