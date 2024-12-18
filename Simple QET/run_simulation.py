@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # (h,k) = (1.5,1) are found to be sufficiently optimal for energy transfer
     h = 1.5
     k = 1
-    n_shots = 100
+    n_shots = 10000
 
     alice_program = AliceProgram(h, k)
     bob_program = BobProgram(h, k)
@@ -58,4 +58,4 @@ Interacting energy V: {V[0]:.5} ± {V[1]:.5}"""
 
     fig.text(0.05, 0, text, va='top')
     #fig.tight_layout()
-    plt.savefig("images/QET_simulation_counts.png", bbox_inches="tight")
+    plt.savefig(f"images/QET_simulation_counts_{n_shots}.png", bbox_inches="tight")

@@ -1,0 +1,38 @@
+qdevice_cfg: &qdevice_cfg
+  num_qubits: 2
+
+  # coherence times (same for each qubit)
+  T1: 0
+  T2: 0
+
+  # gate execution times
+  init_time: 0
+  single_qubit_gate_time: 0
+  two_qubit_gate_time: 0
+  measure_time: 0
+
+  # noise model
+  single_qubit_gate_depolar_prob: 0.0
+  two_qubit_gate_depolar_prob: 0.0
+
+stacks:
+  - name: Alice
+    qdevice_typ: generic
+    qdevice_cfg:
+      <<: *qdevice_cfg
+  - name: Bob
+    qdevice_typ: generic
+    qdevice_cfg:
+      <<: *qdevice_cfg
+
+links:
+  - stack1: Alice
+    stack2: Bob
+    typ: perfect
+    cfg:
+      dummy: null
+
+clinks:
+  - stack1: Alice
+    stack2: Bob
+    typ: instant
