@@ -1,4 +1,4 @@
-# Quantum-Economic-Behaviour
+# Quantum Energy Teleportation
 
 introduction here
 
@@ -7,7 +7,7 @@ introduction here
 <!-- define teleportation -->
 "Teleportation" is the hypothetical transfer of a quantity from one point in space to another without traversing the space in between. 
 <!-- outline previous methods of teleportation -->
-Methods of teleportation for certain quantities are already well established in the quantum mechanical realm, such as for information and computation. 
+Methods of teleportation for certain quantities are already well established in the quantum mechanical realm, such as for quantum information and quantum computation. 
 
 ## Quantum Information Teleportation
 
